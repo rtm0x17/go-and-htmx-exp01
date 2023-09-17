@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io"
+	"html/template"
 	"log"
 	"net/http"
 )
@@ -14,6 +14,6 @@ func main() {
 }
 
 func httpHandlerIndex(resposeWriter http.ResponseWriter, request *http.Request) {
-	io.WriteString(resposeWriter, "Hello World\n")
-	io.WriteString(resposeWriter, request.Method)
+	tpl := template.Must(template.ParseFiles("templates/index.html"))
+	tpl.Execute(resposeWriter, nil)
 }
