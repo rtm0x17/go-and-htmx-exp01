@@ -6,6 +6,11 @@ import (
 	"net/http"
 )
 
+type Film struct {
+	Title    string
+	Director string
+}
+
 func main() {
 
 	http.HandleFunc("/", httpHandlerIndex)
@@ -14,6 +19,13 @@ func main() {
 }
 
 func httpHandlerIndex(resposeWriter http.ResponseWriter, request *http.Request) {
+	films := map[string][]Film{
+		"Films": {
+			{Title: "The Green Mile", Director: "X"},
+			{Title: "Forest Gump", Director: "Y"},
+		},
+	}
+
 	tpl := template.Must(template.ParseFiles("templates/index.html"))
-	tpl.Execute(resposeWriter, nil)
+	tpl.Execute(resposeWriter, films)
 }
